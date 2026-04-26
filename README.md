@@ -1,5 +1,4 @@
-
-Toknify – Intelligent LLM Prompt Cost & Optimization Dashboard
+# Toknify – Intelligent LLM Prompt Cost & Optimization Dashboard
 
 Toknify is a real-time prompt analysis and optimization platform designed to help users understand, compare, and optimize prompts across multiple Large Language Models (LLMs).
 
@@ -49,5 +48,3 @@ Backend: Node.js / Express
 LLM Integration: Openrouter API
 Tokenization: Model-specific tokenizer services
 Visualization: Bar Charts / Pie Charts / Comparative Analytics
-
-
