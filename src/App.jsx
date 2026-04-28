@@ -11,7 +11,7 @@ import './index.css'
 
 const CHARTCOLORS = ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899']
 
-const API_BASE = 'http://localhost:3002'
+const API_BASE = 'https://toknify-backend.onrender.com'
 
 async function fetchAPI(endpoint, body) {
   const response = await fetch(`${API_BASE}${endpoint}`, {
