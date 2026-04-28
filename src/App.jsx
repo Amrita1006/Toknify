@@ -19,12 +19,12 @@ async function fetchAPI(endpoint, body) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
-  
+
   if (!response.ok) {
     const err = await response.json().catch(() => ({ error: 'Request failed' }))
     throw new Error(err.error || err.message || 'Request failed')
   }
-  
+
   return response.json()
 }
 
@@ -52,7 +52,7 @@ function App() {
         console.error(e)
       }
     }
-    
+
     fetchAPI('/api/models', {}).catch(console.error)
   }, [])
 
@@ -120,10 +120,10 @@ function App() {
 
     try {
       const compareModels = [
-        'gpt-4o', 'gpt-4o-mini', 'claude-3-5-sonnet', 
+        'gpt-4o', 'gpt-4o-mini', 'claude-3-5-sonnet',
         'gemini-1.5-flash', 'claude-3-5-haiku'
       ]
-      
+
       const data = await fetchAPI('/api/analyze', {
         prompt,
         pageContent,
@@ -200,7 +200,7 @@ function App() {
             </div>
             <h1 className="text-lg font-semibold tracking-tight">Toknify</h1>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <div className="relative">
               <select
@@ -218,7 +218,7 @@ function App() {
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)] pointer-events-none" />
             </div>
-            
+
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="w-9 h-9 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
@@ -241,7 +241,7 @@ function App() {
                   <input type="file" accept=".txt,.md,.js,.jsx,.ts,.tsx,.json,.html,.css" onChange={handleFileUpload} className="hidden" />
                 </label>
               </div>
-              
+
               {pageContent ? (
                 <div className="relative flex-1 min-h-[200px]">
                   <div className="absolute inset-0 bg-[var(--color-bg-tertiary)] rounded-lg border border-[var(--color-border)] p-3 overflow-auto">
@@ -260,7 +260,7 @@ function App() {
                   <p className="text-xs">Upload file or paste content</p>
                 </div>
               )}
-              
+
               {pageContent && (
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-[var(--color-text-muted)]">{pageContent.length} chars</span>
@@ -301,7 +301,7 @@ function App() {
                   <span className="text-xs text-[var(--color-text-muted)]">{prompt.length} chars</span>
                 </div>
               </div>
-              
+
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
@@ -313,26 +313,24 @@ function App() {
                 <span className="text-xs text-[var(--color-text-muted)]">Optimization:</span>
                 <button
                   onClick={() => { setShowOptimizer(false); setOptimizeMode('safe') }}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
-                    !showOptimizer 
-                      ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)] border border-[var(--color-accent)]' 
+                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${!showOptimizer
+                      ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)] border border-[var(--color-accent)]'
                       : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] border border-[var(--color-border)]'
-                  }`}
+                    }`}
                 >
                   Safe
                 </button>
                 <button
                   onClick={() => { setShowOptimizer(true); setOptimizeMode('aggressive') }}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
-                    showOptimizer 
-                      ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)] border border-[var(--color-accent)]' 
+                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${showOptimizer
+                      ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)] border border-[var(--color-accent)]'
                       : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] border border-[var(--color-border)]'
-                  }`}
+                    }`}
                 >
                   Aggressive
                 </button>
               </div>
-              
+
               <div className="flex items-center gap-3 mt-4">
                 <button
                   onClick={handleAnalyze}
@@ -348,7 +346,7 @@ function App() {
                     </>
                   )}
                 </button>
-                
+
                 <button
                   onClick={handleCompare}
                   disabled={!prompt.trim() || analyzing}
@@ -363,7 +361,7 @@ function App() {
                     </>
                   )}
                 </button>
-                
+
                 <button
                   onClick={handleOptimize}
                   disabled={!prompt.trim() || optimizing}
@@ -412,7 +410,7 @@ function App() {
                     <p className="text-2xl font-bold text-[var(--color-text-primary)] font-mono">{analysis.tokens?.toLocaleString()}</p>
                     <p className="text-xs text-[var(--color-text-muted)]">{analysis.provider}</p>
                   </div>
-                  
+
                   <div className="bg-[var(--color-bg-tertiary)] rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Hash className="w-4 h-4 text-[var(--color-chart-2)]" />
@@ -421,7 +419,7 @@ function App() {
                     <p className="text-2xl font-bold text-[var(--color-text-primary)] font-mono">{analysis.contextLimit?.toLocaleString()}</p>
                     <p className="text-xs text-[var(--color-text-muted)]">max tokens</p>
                   </div>
-                  
+
                   <div className="bg-[var(--color-bg-tertiary)] rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <DollarSign className="w-4 h-4 text-[var(--color-chart-3)]" />
@@ -430,7 +428,7 @@ function App() {
                     <p className="text-2xl font-bold text-[var(--color-accent)] font-mono">${analysis.inputCost?.toFixed(4)}</p>
                     <p className="text-xs text-[var(--color-text-muted)]">${analysis.inputPricePer1M}/1M tokens</p>
                   </div>
-                  
+
                   <div className="bg-[var(--color-bg-tertiary)] rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <CheckCircle className="w-4 h-4 text-[var(--color-chart-4)]" />
@@ -453,7 +451,7 @@ function App() {
             {analysis && isComparison && (
               <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl p-5 animate-fade-in stagger-3">
                 <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-5">Model Comparison</h2>
-                
+
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
